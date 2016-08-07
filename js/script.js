@@ -2,6 +2,8 @@
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
+var intervalID = setInterval(printQuote, 30000);     //sets a timer interval for 30 seconds
+
 var quotes = [
 	{
 	    quote: 'Don\'t cry because it\'s over, smile because it happened.',
@@ -71,16 +73,26 @@ var quotes = [
 
 ];
 
+var viewedQuotes = [];                                          // array to hold viewed quotes
+
+
 function getRandomQuote() {
-	var randomQuote = quotes[Math.floor(Math.random() * quotes.length)]; //creates a variable with a random quote from the quotes array 	
-	return randomQuote;
+	var randNum = Math.floor(Math.random() * quotes.length);    // creates a random number in order to choose a quote from the array
+	var splicedQuote = quotes.splice(randNum, 1)[0];      // splices the random quote out from the main list of quotes
+	viewedQuotes.push(splicedQuote);                            // adds the random quote to the list of view quotes
+	if(quotes.length === 0) {							
+		quotes = viewedQuotes;									// if empty, transfers the quotes from the viewed quotes to the main quotes
+		viewedQuotes = [];
 	}
+	return splicedQuote;                                        // returns the random quote
+}
 
 function printQuote() {
-	var returnedQuote = getRandomQuote(); //returns a random quote (object) from the quotes array
+	clearInterval(intervalID);                                  //clears the timer interval
+	intervalID = setInterval(printQuote, 30000);				//resets the timer interval
+	var returnedQuote = getRandomQuote();                       //returns a random quote (object) from the quotes array
 	var quote = '<p class="quote">' + returnedQuote.quote + '</p>';
 	    quote += '<p class="source">' + returnedQuote.source + '</p>';
-	    // <span class="citation"> [citation here] </span> <span class="year"> [year here] </span> </p>
 	var randomColor = getRandomBackgroundColor();
 	document.getElementById('quote-box').innerHTML = quote;
 	document.body.style.backgroundColor = randomColor;
