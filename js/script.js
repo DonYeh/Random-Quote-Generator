@@ -2,7 +2,7 @@
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-var intervalID = setInterval(printQuote, 30000);     //sets a timer interval for 30 seconds
+var intervalID = setInterval(printQuote, 30000);     			//sets a timer interval for 30 seconds
 
 var quotes = [
 	{
@@ -78,7 +78,7 @@ var viewedQuotes = [];                                          // array to hold
 
 function getRandomQuote() {
 	var randNum = Math.floor(Math.random() * quotes.length);    // creates a random number in order to choose a quote from the array
-	var splicedQuote = quotes.splice(randNum, 1)[0];      // splices the random quote out from the main list of quotes
+	var splicedQuote = quotes.splice(randNum, 1)[0];      		// splices the random quote out from the main list of quotes
 	viewedQuotes.push(splicedQuote);                            // adds the random quote to the list of view quotes
 	if(quotes.length === 0) {							
 		quotes = viewedQuotes;									// if empty, transfers the quotes from the viewed quotes to the main quotes
@@ -93,16 +93,16 @@ function printQuote() {
 	var returnedQuote = getRandomQuote();                       //returns a random quote (object) from the quotes array
 	var quote = '<p class="quote">' + returnedQuote.quote + '</p>';
 	    quote += '<p class="source">' + returnedQuote.source + '</p>';
-	var randomColor = getRandomBackgroundColor();
+	var randomColor = getRandomBackgroundColor();               //calls getRandomBackgroundColor function to generate a random color
 	document.getElementById('quote-box').innerHTML = quote;
-	document.body.style.backgroundColor = randomColor;
+	document.body.style.backgroundColor = randomColor;			//changes the background to a random color
 	return returnedQuote;
 }
 
 function getRandomBackgroundColor() {
-  var red = Math.floor(Math.random() * 256 ); //declaring a variable for the red value
-  var green = Math.floor(Math.random() * 256 ); //declaring a variable for the green value
-  var blue  = Math.floor(Math.random() * 256 ); //declaring a variable for the red value
+  var red = Math.floor(Math.random() * 256 );         			//declaring a variable for the red value
+  var green = Math.floor(Math.random() * 256 ); 				//declaring a variable for the green value
+  var blue  = Math.floor(Math.random() * 256 ); 				//declaring a variable for the red value
   var rgbColor = 'rgb(' + red + ',' + green + ',' + blue + ')'; //combines the red, green and blue values to form the rgb value and stores it in the rgbColor variable
   return rgbColor;
 }
